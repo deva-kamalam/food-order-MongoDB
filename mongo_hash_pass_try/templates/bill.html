@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+</head>
+<body>
+    <h1>Bill Details</h1>
+    <table border="1">
+        <tr>
+            <th>Dish</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+        </tr>
+        {% for item in bill %}
+            <tr>
+                <td>{{ item.Dish }}</td>
+                <td>{{ item.Quantity }}</td>
+                <td>{{ item.Cost }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2"><strong>Total</strong></td>
+            <td>{{ bill[-1].total }}</td>
+        </tr>
+    </table>
+    <form action="{{ url_for('menu') }}" method="post">
+        <button type="submit">Back to menu</button>
+    </form>
+</body>
+</html>

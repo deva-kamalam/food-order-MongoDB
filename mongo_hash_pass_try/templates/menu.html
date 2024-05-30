@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div style="justify-content: right; text-align:right">
+<a href="{{url_for('logout')}}" class="btn btn-success">Logout</a><br><br>
+<a href="{{ url_for('history') }}" class="btn btn-success">Transaction History</a>
+</div>
+    <style>
+    .main{
+        padding-left: 100px;
+        padding-right: 100px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .main .form{
+        flex: 1;
+        justify-content: flex-end;
+    }
+    .main .bill{
+        justify-content: flex-end;
+        margin-top: -40px;
+
+    }
+    </style>
+<body>
+<h1>Menu</h1>
+<form method="post" class="main">
+<div class="form">
+    <table class="menu">
+        <tr>
+            <th>Dish</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+        </tr>
+        {% for key, value in items.items() %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+            <td><input type="number" name="quantity_{{ loop.index }}" min="0" value="0"></td>
+            <input type="hidden" name="dish_{{ loop.index }}" value="{{ key }}">
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" value="Send" name="send">
+</div>
+    <div class="bill">
+        <h1>Bill Details</h1>
+{% if bill %}
+    <table border="1">
+        <tr>
+            <th>Dish</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+        </tr>
+        {% for item in bill[:-1] %}
+            <tr>
+                <td>{{ item.Dish }}</td>
+                <td>{{ item.Quantity }}</td>
+                <td>{{ item.Cost }}</td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2"><strong>Total</strong></td>
+            <td>{{ bill[-1].total }}</td>
+        </tr>
+    </table>
+    {% else %}
+    <p>No items ordered yet.</p>
+{% endif %}
+<input value="Order" type="submit" name="order">
+    </div>
+</form>
+{% endblock body %}

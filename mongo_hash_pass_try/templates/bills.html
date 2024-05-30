@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<br><br>
+{% for bill in bills %}
+----------------------------------------<br>
+
+        <table border="1">
+        <tr>
+            <th>Dish</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+        </tr>
+            {% for dish in bill %}
+        <tr>
+            <td>{{ dish.Dish }}</td>
+            <td>{{ dish.Quantity }}</td>
+            <td>{{ dish.Cost }}</td>
+        </tr>
+                {% endfor %}
+        <tr>
+            <td colspan="2"><strong>Total</strong></td>
+            <td>{{ bill[-1].total }}</td>
+        </tr>
+        </table>
+<br>----------------------------------------<br><br><br>
+{% endfor %}
+
+    <form action="{{ url_for('menu') }}" method="post">
+        <button type="submit">Back to menu</button>
+    </form>
+</body>
+</html>
